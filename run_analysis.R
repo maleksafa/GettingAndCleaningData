@@ -5,7 +5,7 @@ main <- function (MaxRows = -1) {
   if (MaxRows <= 0)
     MaxRows <- -1
   
-  ## Reading Train Files into Data frames
+  ## Reading Train and test Files into Data frames
   subjects <- read.table("Data Science/UCI HAR Dataset/train/subject_train.txt",nrows=MaxRows)
   subjects <- rbind(subjects,read.table("Data Science/UCI HAR Dataset/test/subject_test.txt",nrows=MaxRows))
   
@@ -19,6 +19,7 @@ main <- function (MaxRows = -1) {
   y <- rbind(y,read.table("Data Science/UCI HAR Dataset/test/y_test.txt",nrows=MaxRows))
   names(y)<-"ActivityID"
   
+  ## Reading the Activity Labels and Features files
   activity_labels <- read.table("Data Science/UCI HAR Dataset/activity_labels.txt")
   names(activity_labels)<-c("ActivityID","ActivityDesc")
   
@@ -38,8 +39,14 @@ main <- function (MaxRows = -1) {
   MasterData<-cbind(subjects, y)
   MasterData<-cbind(MasterData, X)
   
+  
+  ## Melt the data set by subjectID and ActivityID
   MasterMelt <- melt(MasterData, id = c("subjectID","ActivityID"), measure.vars=as.character(c(1:561)),variable.name="FeatureID",value.name="FeatureValue")
+  
+  ## Merge the data with the activity_labels and features file
   mergedData <- merge(MasterMelt, activity_labels)
   mergedData <- merge(mergedData, features)
+  
+  ## Return the data set having the isMeanStd flag different than NONE
   return (subset(x=mergedData,isMeanStd!="NONE")[,c(1,6,2,5,3,4)])
 }
