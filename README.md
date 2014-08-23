@@ -1,9 +1,9 @@
-##Coursera GettingAndCleanignData Project
+#Coursera GettingAndCleanignData Project
 ============================================
 
 In order to execute the script, make sure that you create under your working directory a folder called 'Data Science' that will contain the UCI HAR Dataset.
 
-#Description of the Script:
+##Description of the Script:
 
 The goal is to prepare tidy data that can be used for later analysis
 
