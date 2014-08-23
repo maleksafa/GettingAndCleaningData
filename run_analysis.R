@@ -27,8 +27,8 @@ main <- function (MaxRows = -1) {
   names(features)<-c("FeatureID","FeatureDesc")
   
   ## flag the feature as being a mean or std or not, useful for subsetting accordingly
-  features$isMeanStd<- ifelse(grepl("-mean()",features$FeatureDesc),"MEAN",
-                              ifelse(grepl("-std()",features$FeatureDesc),"STD",
+  features$isMeanStd<- ifelse(grepl("-mean\\(\\)",features$FeatureDesc),"MEAN",
+                              ifelse(grepl("-std\\(\\)",features$FeatureDesc),"STD",
                                      "NONE"))
   
   
